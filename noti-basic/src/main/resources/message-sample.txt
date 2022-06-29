@@ -1,0 +1,44 @@
+{
+    "senderId": "senderId1",
+    "title": "testTitle",
+    "content": "testContent",
+    "transactionId": "transAction1",
+    "notificationChannels": [
+        {
+            "type": "email",
+            "transactionId": "transAction1",
+            "senderEmailAddress": "sender@naver.com",
+            "receiverEmailAddress": "reciver1@naver.com",
+            "targetEmailSystem": {
+                "credential": "emailCredential"
+            }
+        },
+        {
+            "type": "email",
+            "transactionId": "transAction1",
+            "senderEmailAddress": "sender@naver.com",
+            "receiverEmailAddress": "reciver2@naver.com",
+            "targetEmailSystem": {
+                "credential": "emailCredential"
+            }
+        },
+        {
+            "type": "sms",
+            "transactionId": "transAction1",
+            "senderPhoneNumber": "010-1111-1111",
+            "receiverPhoneNumber": "010-2222-2222",
+            "targetSMSSystem": {
+                "credential": "smsCredential"
+            }
+        },
+        {
+            "type": "sns",
+            "transactionId": "transAction1",
+            "senderSocialNetworkId": "smsSenderId1",
+            "receiverSocialNetworkId": "smsReceiverId1",
+            "targetSocialNetworkSystem": {
+                "credential": "snsCredential"
+            }
+        }
+    ]
+}

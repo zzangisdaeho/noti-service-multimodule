@@ -1,0 +1,5 @@
+rootProject.name = 'noti'
+include 'noti-core'
+include 'noti-basic'
+include 'noti-message-producer-request'
+

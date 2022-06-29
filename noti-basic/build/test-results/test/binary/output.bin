@@ -1,0 +1,51 @@
+s = {
+  "senderId" : "senderId1",
+  "title" : "testTitle",
+  "content" : "testContent",
+$  "transactionId" : "transAction1",
+  "notificationChannels" : [ {
+    "type" : "email",
+&    "transactionId" : "transAction1",
+    "type" : "email",
+    "isSuccess" : null,
+/    "senderEmailAddress" : "sender@naver.com",
+3    "receiverEmailAddress" : "reciver1@naver.com",
+    "targetEmailSystem" : {
+'      "credential" : "emailCredential"
+    },
+    "success" : false
+  }, {
+    "type" : "email",
+&    "transactionId" : "transAction1",
+    "type" : "email",
+    "isSuccess" : null,
+/    "senderEmailAddress" : "sender@naver.com",
+3    "receiverEmailAddress" : "reciver2@naver.com",
+    "targetEmailSystem" : {
+'      "credential" : "emailCredential"
+    },
+    "success" : false
+  }, {
+    "type" : "sms",
+&    "transactionId" : "transAction1",
+    "type" : "sms",
+    "isSuccess" : null,
++    "senderPhoneNumber" : "010-1111-1111",
+-    "receiverPhoneNumber" : "010-2222-2222",
+    "targetSMSSystem" : {
+%      "credential" : "smsCredential"
+    },
+    "success" : false
+  }, {
+    "type" : "sns",
+&    "transactionId" : "transAction1",
+    "type" : "sns",
+    "isSuccess" : null,
+.    "senderSocialNetworkId" : "smsSenderId1",
+2    "receiverSocialNetworkId" : "smsReceiverId1",
+$    "targetSocialNetworkSystem" : {
+%      "credential" : "snsCredential"
+    },
+    "success" : false
+  } ]
+}

@@ -1,0 +1,32 @@
+{
+    "senderId": "senderId1",
+    "title": "testTitle",
+    "content": "testContent",
+    "transactionId": "transAction1",
+    "notificationChannels": [
+        {
+            "type": "email",
+            "transactionId": "transAction1",
+            "senderEmailAddress": "sender@naver.com",
+            "receiverEmailAddress": "reciver1@naver.com"
+        },
+        {
+            "type": "email",
+            "transactionId": "transAction1",
+            "senderEmailAddress": "sender@naver.com",
+            "receiverEmailAddress": "reciver2@naver.com"
+        },
+        {
+            "type": "sms",
+            "transactionId": "transAction1",
+            "senderPhoneNumber": "01011111111",
+            "receiverPhoneNumber": "01022222222"
+        },
+        {
+            "type": "sns",
+            "transactionId": "transAction1",
+            "senderSocialNetworkId": "smsSenderId1",
+            "receiverSocialNetworkId": "smsReceiverId1"
+        }
+    ]
+}
