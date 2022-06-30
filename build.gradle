@@ -46,6 +46,8 @@ subprojects {
         annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+        compileOnly project(':noti-core')
     }
 
     test {
@@ -64,17 +66,17 @@ project(':noti-core') {
     }
 }
 
-project(':noti-message-producer-request') {
-    dependencies {
-        // 컴파일시 core 모듈을 가져온다.
-        compileOnly project(':noti-core')
-//        implementation 'org.springframework.boot:spring-boot-starter-web'
-    }
-}
-
-project(':noti-basic') {
-    dependencies {
-        compileOnly project(':noti-core')
-//        implementation 'org.springframework.boot:spring-boot-starter-web'
-    }
-}
+//project(':noti-message-producer-request') {
+//    dependencies {
+//        // 컴파일시 core 모듈을 가져온다.
+//        compileOnly project(':noti-core')
+////        implementation 'org.springframework.boot:spring-boot-starter-web'
+//    }
+//}
+//
+//project(':noti-basic') {
+//    dependencies {
+//        compileOnly project(':noti-core')
+////        implementation 'org.springframework.boot:spring-boot-starter-web'
+//    }
+//}
