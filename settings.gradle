@@ -2,4 +2,7 @@ rootProject.name = 'noti'
 include 'noti-core'
 include 'noti-basic'
 include 'noti-message-producer-request'
+include 'noti-message-transformer'
+include 'noti-message-consumer'
+include 'noti-message-aggregator'
 

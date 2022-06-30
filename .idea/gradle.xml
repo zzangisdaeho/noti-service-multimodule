@@ -14,7 +14,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/noti-basic" />
             <option value="$PROJECT_DIR$/noti-core" />
+            <option value="$PROJECT_DIR$/noti-message-aggregator" />
+            <option value="$PROJECT_DIR$/noti-message-consumer" />
             <option value="$PROJECT_DIR$/noti-message-producer-request" />
+            <option value="$PROJECT_DIR$/noti-message-transformer" />
           </set>
         </option>
       </GradleProjectSettings>
