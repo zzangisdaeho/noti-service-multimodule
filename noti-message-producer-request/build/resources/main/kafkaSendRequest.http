@@ -1,0 +1,39 @@
+POST http://localhost:9000/notification
+Content-Type: application/json
+
+{
+  "senderId": "senderId1",
+  "title": "testTitle",
+  "content": "testContent",
+  "notificationChannels": [
+    {
+      "type": "email",
+      "senderEmailAddress": "sender@naver.com",
+      "receiverEmailAddress": "reciver1@naver.com"
+    },
+    {
+      "type": "email",
+      "senderEmailAddress": "sender@naver.com",
+      "receiverEmailAddress": "reciver2@naver.com"
+    },
+    {
+      "type": "sms",
+      "senderPhoneNumber": "01011111111",
+      "receiverPhoneNumber": "01022222222"
+    },
+    {
+      "type": "sns",
+      "senderSocialNetworkId": "smsSenderId1",
+      "receiverSocialNetworkId": "smsReceiverId1"
+    }
+  ]
+}
+
+###
+GET http://localhost:8080/notification/logs?senderId=senderId1&page=0&size=3&sort=id,desc&sort=username,desc
+Accept: application/json
+Content-Type: application/json
+
+###
+
+
