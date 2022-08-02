@@ -1,17 +1,7 @@
-plugins {
-    id 'java'
-}
-
-version 'unspecified'
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-}
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'org.apache.kafka:kafka-streams'
 
-test {
-    useJUnitPlatform()
+    compileOnly project(':noti-core')
 }

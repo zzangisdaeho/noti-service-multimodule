@@ -1,7 +1,7 @@
 package com.example.notimessageproducerrequest.controller;
 
-import com.example.noticore.domain.Notification;
-import com.example.notimessageproducerrequest.messaging.NotificationProducer;
+import com.example.noticore.domain.request_all.Notification;
+import com.example.notimessageproducerrequest.message.NotificationProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

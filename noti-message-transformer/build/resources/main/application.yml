@@ -1,3 +1,6 @@
+server:
+  port: 9001
+
 spring:
 
   kafka:
@@ -14,12 +17,12 @@ logging:
     #http request logging
     org.apache.coyote.http11: debug
 #    com.example.notiservice: debug
-    org:
-      hibernate:
-        SQL: debug
-        type.descriptor.sql.BasicBinder: trace
-      springframework:
-        data:
-          mongodb:
-            core:
-              MongoTemplate: DEBUG
+#    org:
+#      hibernate:
+#        SQL: debug
+#        type.descriptor.sql.BasicBinder: trace
+#      springframework:
+#        data:
+#          mongodb:
+#            core:
+#              MongoTemplate: DEBUG

@@ -30,9 +30,9 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/notification/logs?senderId=senderId1&page=0&size=3&sort=id,desc&sort=username,desc
-Accept: application/json
-Content-Type: application/json
+#GET http://localhost:8080/notification/logs?senderId=senderId1&page=0&size=3&sort=id,desc&sort=username,desc
+#Accept: application/json
+#Content-Type: application/json
 
 ###
 
