@@ -28,7 +28,7 @@ public class NotificationProducer {
 
         ProducerRecord<String, String> record = new ProducerRecord<>(TopicConstList.NOTIFICATION_SEND_CMD, jsonInString);
 
-        record.headers().add(new RecordHeader(KafkaHeaders.RETRY_COUNT, "1".getBytes(StandardCharsets.UTF_8)));
+        record.headers().add(new RecordHeader(KafkaHeaders.RETRY_COUNT, "0".getBytes(StandardCharsets.UTF_8)));
 
         kafkaTemplate.send(record);
     }

@@ -26,10 +26,14 @@ public class NotificationConsumer {
 
     @KafkaListener(topics = TopicConstList.NOTIFICATION_SEND_SPLIT)
     public void notificationConsumer(ConsumerRecord<String,String> record){
-        log.info(String.valueOf(record));
+        byte[] value = record.headers().lastHeader(KafkaHeaders.RETRY_COUNT).value();
+        int retryCount = Integer.parseInt(new String(value));
 
-        notificationSender.send(record);
-
+        if(retryCount > 2){
+            //todo : fail event 어떻게 보낼지 생각해봐야함
+        }else{
+            notificationSender.send(record);
+        }
 
     }
 
