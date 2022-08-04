@@ -2,7 +2,6 @@ package com.example.notimessagesconsumer.service;
 
 import com.example.noticore.domain.request_all.channel.NotificationChannel;
 import com.example.noticore.domain.request_each.NotificationEach;
-import com.example.noticore.message.KafkaHeaders;
 import com.example.notimessagesconsumer.biz.ThirdPartyInterface;
 import com.example.notimessagesconsumer.message.NotificationRetryProducer;
 import com.example.notimessagesconsumer.message.NotificationSuccessProducer;
@@ -13,10 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @Service
 @RequiredArgsConstructor
@@ -33,18 +30,25 @@ public class NotificationSender {
 
         NotificationEach notificationEach = unmarshalling(objectMapper, record.value());
 
-        CompletableFuture<NotificationChannel> sendFuture = choiceAdaptor(notificationEach.getNotificationChannel())
-                .send(notificationEach.getNotificationChannel(), notificationEach.getTitle(), notificationEach.getContent());
-        sendFuture.completeExceptionally(new IllegalArgumentException("전송 오류 발생"));
-
         try {
+            CompletableFuture<NotificationChannel> sendFuture = choiceAdaptor(notificationEach.getNotificationChannel())
+                    .send(notificationEach.getNotificationChannel(), notificationEach.getTitle(), notificationEach.getContent());
             sendFuture.get();
             log.info("send success. produce success message");
-            notificationRetryProducer.sendRetryMessage(record);
+            notificationSuccessProducer.sendSuccessMessage(record);
         } catch (Exception e) {
             log.error("send fail. produce retry message");
-            notificationSuccessProducer.sendSuccessMessage(record);
+            notificationRetryProducer.sendRetryMessage(record);
         }
+
+//        try {
+//            sendFuture.get();
+//            log.info("send success. produce success message");
+//            notificationSuccessProducer.sendSuccessMessage(record);
+//        } catch (Exception e) {
+//            log.error("send fail. produce retry message");
+//            notificationRetryProducer.sendRetryMessage(record);
+//        }
 
     }
 

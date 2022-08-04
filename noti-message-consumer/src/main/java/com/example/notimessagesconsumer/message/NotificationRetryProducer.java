@@ -22,6 +22,7 @@ public class NotificationRetryProducer {
 
         byte[] value = consumerRecord.headers().lastHeader(KafkaHeaders.RETRY_COUNT).value();
         int retryCount = Integer.parseInt(new String(value)) + 1;
+        log.info("retry count : {}" , retryCount-1);
 
         ProducerRecord<String, String> producerRecord = MessageConverter.convertConsumerRecordToProducerRecord(consumerRecord);
         producerRecord.headers().add(KafkaHeaders.RETRY_COUNT, String.valueOf(retryCount).getBytes(StandardCharsets.UTF_8));
