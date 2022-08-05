@@ -26,9 +26,7 @@ public class NotificationSender {
 
     public void send(ConsumerRecord<String, String> record) {
 
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        NotificationEach notificationEach = unmarshalling(objectMapper, record.value());
+        NotificationEach notificationEach = unmarshalling(record.value());
 
         try {
             CompletableFuture<NotificationChannel> sendFuture = choiceAdaptor(notificationEach.getNotificationChannel())
@@ -52,7 +50,8 @@ public class NotificationSender {
 
     }
 
-    private NotificationEach unmarshalling(ObjectMapper objectMapper, String request) {
+    private NotificationEach unmarshalling(String request) {
+        ObjectMapper objectMapper = new ObjectMapper();
         NotificationEach notificationEach = null;
         try {
             notificationEach = objectMapper.readValue(request, NotificationEach.class);

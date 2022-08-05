@@ -4,6 +4,7 @@ import com.example.noticore.domain.request_all.Notification;
 import com.example.noticore.domain.request_all.channel.NotificationChannel;
 import com.example.noticore.domain.request_each.NotificationEach;
 import com.example.noticore.message.TopicConstList;
+import com.example.notimessagestransformer.util.ValidationUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -13,10 +14,12 @@ import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.KStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.ValidationUtils;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Component
@@ -31,25 +34,26 @@ public class NotificationRequestSplitter {
         KStream<String, String> messageStream = streamsBuilder
                 .stream(TopicConstList.NOTIFICATION_SEND_CMD);
 
-        String uuid = UUID.randomUUID().toString();
+        AtomicReference<String> uuid = new AtomicReference<>();
 
-        messageStream.flatMapValues((value) -> {
-                    Notification unmarshalling = unmarshalling(value);
-                    List<NotificationChannel> notificationChannels = unmarshalling.getNotificationChannels();
+        messageStream.mapValues((key, value) -> unmarshalling(value))
+                .filter((key, value) -> {
+                    boolean validationResult = ValidationUtil.checkValidation(value);
+                    if(!validationResult){
+                        //todo : 유효하지 못한 요청에 대한 메세지 발행
+                    }
+                    return validationResult;
+                })
+                .flatMapValues((value) -> {
+                    uuid.set(UUID.randomUUID().toString());
+                    List<NotificationChannel> notificationChannels = value.getNotificationChannels();
                     AtomicInteger index = new AtomicInteger(1);
                     return notificationChannels.stream()
-                            .map(notificationChannel -> new NotificationEach(uuid, notificationChannel, unmarshalling.getTitle(), unmarshalling.getContent(), index.getAndIncrement(), notificationChannels.size()))
+                            .map(notificationChannel -> new NotificationEach(uuid.get(), notificationChannel, value.getTitle(), value.getContent(), index.getAndIncrement(), notificationChannels.size()))
                             .collect(Collectors.toList());
-                }).map((key, value) -> new KeyValue<>(uuid, makeJsonString(value)))
+                })
+                .map((key, value) -> new KeyValue<>(uuid.get(), makeJsonString(value)))
                 .to(TopicConstList.NOTIFICATION_SEND_SPLIT);
-
-//        KTable<String, Long> wordCounts = messageStream
-//                .mapValues((ValueMapper<String, String>) String::toLowerCase)
-//                .flatMapValues(value -> Arrays.asList(value.split("\\W+")))
-//                .groupBy((key, word) -> word, Grouped.with(STRING_SERDE, STRING_SERDE))
-//                .count();
-
-//        wordCounts.toStream().to("output-topic");
     }
 
     private Notification unmarshalling(String value) {
@@ -66,7 +70,7 @@ public class NotificationRequestSplitter {
     private String makeJsonString(Object request) {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonInString = null;
-        try{
+        try {
             jsonInString = objectMapper.writeValueAsString(request);
         } catch (JsonProcessingException e) {
             log.error("json String parsing error");

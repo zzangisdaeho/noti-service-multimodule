@@ -23,6 +23,7 @@ public class NotificationConsumer {
 
 
     private final NotificationSender notificationSender;
+    private final NotificationFailProducer notificationFailProducer;
 
     @KafkaListener(topics = TopicConstList.NOTIFICATION_SEND_SPLIT)
     public void notificationConsumer(ConsumerRecord<String,String> record){
@@ -30,7 +31,7 @@ public class NotificationConsumer {
         int retryCount = Integer.parseInt(new String(value));
 
         if(retryCount > 2){
-            //todo : fail event 어떻게 보낼지 생각해봐야함
+            notificationFailProducer.sendFailMessage(record);
         }else{
             notificationSender.send(record);
         }

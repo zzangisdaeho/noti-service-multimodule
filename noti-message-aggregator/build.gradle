@@ -1,17 +1,9 @@
-plugins {
-    id 'java'
-}
-
-version 'unspecified'
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-}
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.apache.kafka:kafka-streams'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    // https://mvnrepository.com/artifact/net.jodah/expiringmap
+    implementation 'net.jodah:expiringmap:0.5.10'
 
-test {
-    useJUnitPlatform()
+    compileOnly project(':noti-core')
 }
