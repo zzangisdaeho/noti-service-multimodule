@@ -4,6 +4,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind'
     // https://mvnrepository.com/artifact/net.jodah/expiringmap
     implementation 'net.jodah:expiringmap:0.5.10'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
 
     compileOnly project(':noti-core')
 }

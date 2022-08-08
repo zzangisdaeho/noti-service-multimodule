@@ -13,8 +13,8 @@ import java.util.Map;
 
 import static org.apache.kafka.streams.StreamsConfig.*;
 
-//@EnableKafkaStreams
-//@Configuration
+@EnableKafkaStreams
+@Configuration
 public class StreamConfig {
 
     @Value(value = "${spring.kafka.consumer.bootstrap-servers}")
