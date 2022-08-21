@@ -29,9 +29,9 @@ public class SNSBiz implements ThirdPartyInterface{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        throw new IllegalStateException("망가졌당");
-//        log.info("send finish from {}, to {}, title: {}, content: {}", socialNetworkNotification.getSenderSocialNetworkId(), socialNetworkNotification.getReceiverSocialNetworkId(), title, content);
-//
-//        return CompletableFuture.completedFuture(socialNetworkNotification);
+//        throw new IllegalStateException("망가졌당");
+        log.info("send finish from {}, to {}, title: {}, content: {}", socialNetworkNotification.getSenderSocialNetworkId(), socialNetworkNotification.getReceiverSocialNetworkId(), title, content);
+
+        return CompletableFuture.completedFuture(socialNetworkNotification);
     }
 }
